@@ -49,6 +49,7 @@ module OpenTelemetry
           def finish(_name, _id, payload)
             rack_span = OpenTelemetry::Instrumentation::Rack.current_span
             rack_span.record_exception(payload[:exception_object]) if payload[:exception_object]
+            rack_span.add_attributes({"Test" => "Testing in lib"})
           rescue StandardError => e
             OpenTelemetry.handle_error(exception: e)
           end
